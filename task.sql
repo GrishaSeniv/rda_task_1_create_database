@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS Customers (
 
 CREATE TABLE IF NOT EXISTS Orders (
     ID INT AUTO_INCREMENT,
-    CustomerID INT,
+    CustomerID INT NULL,
     Date DATE,
     PRIMARY KEY (ID),
     FOREIGN KEY (CustomerID)
@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS Orders (
 
 CREATE TABLE IF NOT EXISTS OrderItems (
     ID INT AUTO_INCREMENT,
-    OrderID INT,
-    ProductID INT,
+    OrderID INT NULL,
+    ProductID INT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (OrderID)
         REFERENCES Orders (ID)
