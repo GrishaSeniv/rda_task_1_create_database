@@ -1,18 +1,42 @@
-# check if database exists 
-USE ShopDB; 
+CREATE DATABASE IF NOT EXISTS ShopDB;
+USE ShopDB;
 
-# check if table "Products" exists, all required columnts are in place, and have correct types 
-INSERT INTO Products (Name, Description, Price, WarehouseAmount)
-	VALUES ('Product', 'Product Desctiption', 5, 42);
+CREATE TABLE IF NOT EXISTS Products (
+	ID INT AUTO_INCREMENT,
+    Name VARCHAR(50),
+    Description VARCHAR(100),
+    Price INT,
+    WarehouseAmount INT,
+    PRIMARY KEY(ID)
+);
 
-# check if table "Customers" exists, all required columns are in place, and have correct types
-INSERT INTO Customers (FirstName, LastName, Email, Address)
-	VALUES ('John', 'Dou', 'j@dou.ua', 'far, far away');
+CREATE TABLE IF NOT EXISTS Customers (
+	ID INT AUTO_INCREMENT,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100),
+    Address VARCHAR(100),
+    PRIMARY KEY(ID)
+);
 
-# check if table "Orders" exists, all required columns are in place, and have correct types
-INSERT INTO Orders (CustomerID, Date)
-	VALUES (1, '2023-01-01');
+CREATE TABLE IF NOT EXISTS Orders (
+    ID INT AUTO_INCREMENT,
+    CustomerID INT,
+    Date DATE,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (CustomerID)
+        REFERENCES Customers (ID) ON DELETE SET NULL
+);
 
-# check if table "OrderItems" exists, all required columns are in place, and have correct types
-INSERT INTO OrderItems (OrderID, ProductID)
-	VALUES (1, 1);
+CREATE TABLE IF NOT EXISTS OrderItems (
+    ID INT AUTO_INCREMENT,
+    OrderID INT,
+    ProductID INT,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (OrderID)
+        REFERENCES Orders (ID)
+        ON DELETE SET NULL,
+    FOREIGN KEY (ProductID)
+        REFERENCES Products (ID)
+        ON DELETE SET NULL
+);
